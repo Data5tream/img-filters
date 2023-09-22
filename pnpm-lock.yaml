@@ -8,9 +8,15 @@ dependencies:
   flowbite:
     specifier: ^1.8.1
     version: 1.8.1
+  konva:
+    specifier: ^9.2.1
+    version: 9.2.1
   vue:
     specifier: ^3.3.4
     version: 3.3.4
+  vue-konva:
+    specifier: ^3.0.2
+    version: 3.0.2(konva@9.2.1)
 
 devDependencies:
   '@rushstack/eslint-patch':
@@ -1646,6 +1652,10 @@ packages:
       json-buffer: 3.0.1
     dev: true
 
+  /konva@9.2.1:
+    resolution: {integrity: sha512-/D9mZttzjqrkjVPlWyJirdBjFJ/uafrFFR5BD41PsFUX+ctqmoFZjcnjs/ag6YnZNEVsU4/E9dRaH5FH9Y4cLw==}
+    dev: false
+
   /levn@0.4.1:
     resolution: {integrity: sha512-+bT2uH4E5LGE7h/n3evcS/sQlJXCpIp6ym8OWJ5eV6+67Dsql/LaaT7qJBAt2rzfoa/5QBGBhxDix1dMt2kQKQ==}
     engines: {node: '>= 0.8.0'}
@@ -2454,6 +2464,15 @@ packages:
     transitivePeerDependencies:
       - supports-color
     dev: true
+
+  /vue-konva@3.0.2(konva@9.2.1):
+    resolution: {integrity: sha512-FNWKtPPVDihNuQcq7F4GzuVPkPaEfg8lnWezpRqgiC2VetdvONOiYOFD800jNL5kt/lEYnSOYvhqqdTPbv2c8w==}
+    engines: {node: '>= 4.0.0', npm: '>= 3.0.0'}
+    peerDependencies:
+      konva: '>7'
+    dependencies:
+      konva: 9.2.1
+    dev: false
 
   /vue-template-compiler@2.7.14:
     resolution: {integrity: sha512-zyA5Y3ArvVG0NacJDkkzJuPQDF8RFeRlzV2vLeSnhSpieO6LK2OVbdLPi5MPPs09Ii+gMO8nY4S3iKQxBxDmWQ==}
