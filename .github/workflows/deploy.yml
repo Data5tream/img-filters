@@ -47,7 +47,7 @@ jobs:
 
 
   deploy:
-    needs: build_site
+    needs: build
     runs-on: ubuntu-latest
 
 
