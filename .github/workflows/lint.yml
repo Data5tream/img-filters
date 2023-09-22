@@ -1,0 +1,41 @@
+name: Lint frontend
+
+on:
+  push:
+    branches:
+      - master
+    paths-ignore:
+      - '**.md'
+      - 'public'
+  pull_request:
+    branches:
+      - master
+
+permissions:
+  checks: write
+
+jobs:
+  lint:
+    name: Run linters
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 20
+
+      - name: Enable PNPM
+        run: corepack enable
+
+      - name: Install Node.js dependencies
+        run: pnpm i
+
+      - name: Run linters
+        uses: wearerequired/lint-action@v2
+        with:
+          eslint: true
+          prettier: true
