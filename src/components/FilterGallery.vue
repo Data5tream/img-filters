@@ -2,6 +2,8 @@
 import type { Ref } from 'vue';
 import { onMounted, ref, watch } from 'vue';
 
+import FilterImage from '@/components/FilterImage.vue';
+
 const props = defineProps<{
   image: string;
 }>();
@@ -22,7 +24,6 @@ const updateImages = (val: string) => {
       img: val,
     });
   }
-
   filterPreviews.value = filters;
 };
 
@@ -39,11 +40,12 @@ onMounted(() => {
 <template>
   <div class="grid gap-4 max-h-full">
     <div>
-      <img class="preview-image" :src="currentPreview" alt="Uploaded image" />
+      <FilterImage :image="currentPreview" />
     </div>
     <div class="grid grid-cols-5 gap-4">
       <div v-for="preview in filterPreviews" :key="preview.title">
         <img class="h-auto max-w-full rounded-lg" :src="preview.img" :alt="preview.title" />
+        <span class="block text-center">{{ preview.title }}</span>
       </div>
     </div>
   </div>
