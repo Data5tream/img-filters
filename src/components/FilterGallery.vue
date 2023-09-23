@@ -39,7 +39,7 @@ onMounted(() => {
 
 <template>
   <div class="grid gap-4 max-h-full">
-    <div>
+    <div class="preview-image">
       <FilterImage :image="currentPreview" />
     </div>
     <div class="grid grid-cols-5 gap-4">
@@ -54,6 +54,6 @@ onMounted(() => {
 <style scoped lang="postcss">
 .preview-image {
   max-height: 75vh;
-  @apply h-auto max-w-full rounded-lg mx-auto;
+  @apply h-auto max-w-full mx-auto;
 }
 </style>

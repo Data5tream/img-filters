@@ -1,35 +1,48 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import type { Ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import Konva from 'konva';
 
 const props = defineProps<{
   image: string;
 }>();
 
-const stage = ref();
+const container: Ref<HTMLDivElement> = ref();
 const layer = ref();
 
+const width = computed(() => 1080 * baseScale.value);
+const height = computed(() => 1920 * baseScale.value);
+
+const baseScale: Ref<number> = ref(1);
+
 const loadFilter = (dataUrl: string) => {
+  // Create background image
   Konva.Image.fromURL(dataUrl, function (imgNode) {
     const lay = layer.value.getNode();
+
+    // Get the scale that fits the image onto the canvas
     const mainScale = lay.getHeight() / imgNode.getHeight();
 
+    // Center image horizontally onto the canvas
     imgNode.setAttrs({
-      x: 0,
+      x: (width.value - imgNode.getWidth() * mainScale) / 2,
       y: 0,
       scaleX: mainScale,
       scaleY: mainScale,
     });
     lay.add(imgNode);
 
+    // Blur the first image
     applyFilter();
 
+    // Create foreground image
     Konva.Image.fromURL(dataUrl, function (imgNode) {
-      const miniScale = 0.4;
+      // Create scale factor of second image
+      const miniScale = mainScale * 0.5;
 
       imgNode.setAttrs({
-        x: lay.getWidth() / 2 - imgNode.getWidth() * miniScale * mainScale,
-        y: lay.getHeight() / 2 - imgNode.getHeight() * miniScale * mainScale,
+        x: (width.value - imgNode.getWidth() * miniScale) / 2,
+        y: (height.value - imgNode.getHeight() * miniScale) / 2,
         scaleX: miniScale,
         scaleY: miniScale,
       });
@@ -47,11 +60,21 @@ const applyFilter = () => {
 
 onMounted(() => {
   loadFilter(props.image);
+
+  baseScale.value = container.value.clientHeight / 1920;
 });
 </script>
 
 <template>
-  <v-stage ref="stage" :config="{ width: 800, height: 800 }">
-    <v-layer ref="layer" />
-  </v-stage>
+  <div class="canvas-container" ref="container">
+    <v-stage :config="{ width, height }">
+      <v-layer ref="layer" />
+    </v-stage>
+  </div>
 </template>
+
+<style scoped>
+.canvas-container {
+  height: 100%;
+}
+</style>
