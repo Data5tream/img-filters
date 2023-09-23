@@ -4,8 +4,8 @@ import { initFlowbite } from 'flowbite';
 import FileUpload from '@/components/FileUpload.vue';
 import FilterGallery from '@/components/FilterGallery.vue';
 
-let originalImage = ref('');
-let previewImage = ref('');
+const originalImage = ref<string>();
+const previewImage = ref<string>();
 
 const onUpload = (img: string) => {
   originalImage.value = img;
