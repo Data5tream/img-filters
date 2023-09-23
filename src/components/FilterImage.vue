@@ -6,6 +6,10 @@ const props = defineProps<{
   image: string;
 }>();
 
+const emit = defineEmits<{
+  (e: 'finished'): void;
+}>();
+
 const container = ref<HTMLDivElement>();
 const layer = ref();
 
@@ -46,6 +50,9 @@ const loadFilter = (dataUrl: string) => {
         scaleY: miniScale,
       });
       lay.add(imgNode);
+
+      // Emit finished event in case this filter image is used to trigger the loading indicator
+      emit('finished');
     });
   });
 };
