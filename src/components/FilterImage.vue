@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import type { Ref } from 'vue';
 import { computed, onMounted, ref } from 'vue';
 import Konva from 'konva';
 
@@ -7,21 +6,21 @@ const props = defineProps<{
   image: string;
 }>();
 
-const container: Ref<HTMLDivElement> = ref();
+const container = ref<HTMLDivElement>();
 const layer = ref();
 
 const width = computed(() => 1080 * baseScale.value);
 const height = computed(() => 1920 * baseScale.value);
 
-const baseScale: Ref<number> = ref(1);
+const baseScale = ref(1);
 
 const loadFilter = (dataUrl: string) => {
   // Create background image
   Konva.Image.fromURL(dataUrl, function (imgNode) {
-    const lay = layer.value.getNode();
+    const lay = layer.value.getNode() as Konva.Layer;
 
     // Get the scale that fits the image onto the canvas
-    const mainScale = lay.getHeight() / imgNode.getHeight();
+    const mainScale = height.value / imgNode.getHeight();
 
     // Center image horizontally onto the canvas
     imgNode.setAttrs({
@@ -61,7 +60,7 @@ const applyFilter = () => {
 onMounted(() => {
   loadFilter(props.image);
 
-  baseScale.value = container.value.clientHeight / 1920;
+  baseScale.value = container.value!.clientHeight / 1920;
 });
 </script>
 
