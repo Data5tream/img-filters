@@ -75,4 +75,11 @@ onMounted(() => {
   max-height: 75vh;
   @apply h-auto max-w-full mx-auto;
 }
+.preview-tiles {
+  max-height: 25vh;
+
+  img {
+    height: 128px;
+  }
+}
 </style>
