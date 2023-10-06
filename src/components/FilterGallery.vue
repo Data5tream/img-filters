@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { onMounted, ref, watch } from 'vue';
 
-import FilterImage from '@/components/FilterImage.vue';
+import BlurFilter from '@/components/filters/BlurFilter.vue';
+import NoFilter from '@/components/filters/NoFilter.vue';
 
 const props = defineProps<{
   image: string;
@@ -11,20 +12,24 @@ const originalImage = ref<string>(props.image);
 const currentPreview = ref<string>(props.image);
 const loading = ref<boolean>(true);
 
-const filterPreviews = ref<Array<{ title: string; img: string }>>([]);
+const filterPreviews = ref<Array<{ title: string; filter: object; img: string }>>([]);
 
 const updateImages = (val: string) => {
   originalImage.value = val;
   currentPreview.value = val;
 
-  let filters = [];
-  for (let i = 0; i < 5; i++) {
-    filters.push({
-      title: `Filter ${i}`,
+  filterPreviews.value = [
+    {
+      title: 'No filter',
+      filter: NoFilter,
       img: val,
-    });
-  }
-  filterPreviews.value = filters;
+    },
+    {
+      title: 'Blurred',
+      filter: BlurFilter,
+      img: val,
+    },
+  ];
 };
 
 watch(
@@ -58,12 +63,14 @@ onMounted(() => {
       </svg>
       <span class="sr-only">Loading...</span>
     </div>
-    <div class="preview-image">
-      <FilterImage :image="currentPreview" @finished="loading = false" />
+    <div class="full-image">
+      <BlurFilter :image="currentPreview" @finished="loading = false" />
     </div>
-    <div class="grid grid-cols-5 gap-4">
+    <div class="grid grid-cols-5 gap-4 preview-tiles">
       <div v-for="preview in filterPreviews" :key="preview.title">
-        <img class="h-auto max-w-full rounded-lg" :src="preview.img" :alt="preview.title" />
+        <div class='preview-image'>
+          <component :is='preview.filter' :image='preview.img' />
+        </div>
         <span class="block text-center">{{ preview.title }}</span>
       </div>
     </div>
@@ -71,14 +78,14 @@ onMounted(() => {
 </template>
 
 <style scoped lang="postcss">
-.preview-image {
+.full-image {
   max-height: 75vh;
   @apply h-auto max-w-full mx-auto;
 }
 .preview-tiles {
   max-height: 25vh;
 
-  img {
+  .preview-image {
     height: 128px;
   }
 }
