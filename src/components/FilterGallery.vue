@@ -54,9 +54,9 @@ onMounted(() => {
       <component :is="filterPreviews[currentFilter].filter" :image="currentPreview" @finished="loading = false" />
     </div>
     <div class="grid grid-cols-5 gap-4 preview-tiles">
-      <div v-for="(preview, i) in filterPreviews" :key="preview.title" class="cursor-pointer" @click="changeFilter(i)">
-        <div class='preview-image'>
-          <component :is='preview.filter' :image='currentPreview' />
+      <div v-for="(preview, i) in filterPreviews" :key="preview.title" class="preview-tile" @click="changeFilter(i)">
+        <div class="preview-image">
+          <component :is="preview.filter" :image="currentPreview" />
         </div>
         <span class="block text-center">{{ preview.title }}</span>
       </div>
@@ -71,6 +71,10 @@ onMounted(() => {
 }
 .preview-tiles {
   max-height: 25vh;
+
+  .preview-tile {
+    @apply cursor-pointer border rounded;
+  }
 
   .preview-image {
     height: 128px;
