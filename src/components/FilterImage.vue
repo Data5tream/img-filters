@@ -33,6 +33,7 @@ const loadFilter = (dataUrl: string) => {
       scaleX: mainScale,
       scaleY: mainScale,
     });
+    imgNode.cache({ pixelRatio: 1 });
     lay.add(imgNode);
 
     // Blur the first image
@@ -49,6 +50,7 @@ const loadFilter = (dataUrl: string) => {
         scaleX: miniScale,
         scaleY: miniScale,
       });
+      imgNode.cache({ pixelRatio: 1 });
       lay.add(imgNode);
 
       // Emit finished event in case this filter image is used to trigger the loading indicator
