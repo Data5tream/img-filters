@@ -61,7 +61,6 @@ const loadFilter = (dataUrl: string) => {
 
 const applyFilter = () => {
   const konvaImg = layer.value.getNode().findOne('Image');
-  konvaImg.cache();
   konvaImg.filters([Konva.Filters.Blur]);
   konvaImg.blurRadius(20);
 };
