@@ -10,9 +10,10 @@ const props = defineProps<{
 
 const originalImage = ref<string>(props.image);
 const currentPreview = ref<string>(props.image);
+const currentFilter = ref<number>(0);
 const loading = ref<boolean>(true);
 
-const filterPreviews = ref<Array<{ title: string; filter: object; img: string }>>([]);
+const filterPreviews = ref<Array<{ title: string; filter: object }>>([]);
 
 const updateImages = (val: string) => {
   originalImage.value = val;
@@ -22,15 +23,18 @@ const updateImages = (val: string) => {
     {
       title: 'No filter',
       filter: NoFilter,
-      img: val,
     },
     {
       title: 'Blurred',
       filter: BlurFilter,
-      img: val,
     },
   ];
 };
+
+const changeFilter = (filter: number) => {
+  loading.value = true;
+  currentFilter.value = filter;
+}
 
 watch(
   () => props.image,
@@ -63,13 +67,13 @@ onMounted(() => {
       </svg>
       <span class="sr-only">Loading...</span>
     </div>
-    <div class="full-image">
-      <BlurFilter :image="currentPreview" @finished="loading = false" />
+    <div class="full-image" v-if="filterPreviews.length > currentFilter">
+      <component :is="filterPreviews[currentFilter].filter" :image="currentPreview" @finished="loading = false" />
     </div>
     <div class="grid grid-cols-5 gap-4 preview-tiles">
-      <div v-for="preview in filterPreviews" :key="preview.title">
+      <div v-for="(preview, i) in filterPreviews" :key="preview.title" class="cursor-pointer" @click="changeFilter(i)">
         <div class='preview-image'>
-          <component :is='preview.filter' :image='preview.img' />
+          <component :is='preview.filter' :image='currentPreview' />
         </div>
         <span class="block text-center">{{ preview.title }}</span>
       </div>
