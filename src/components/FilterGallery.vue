@@ -33,7 +33,7 @@ const updateImages = (val: string) => {
     {
       title: 'Blurred with center',
       filter: BlurCenterFilter,
-    }
+    },
   ];
 };
 
