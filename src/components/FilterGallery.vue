@@ -4,6 +4,7 @@ import { onMounted, ref, watch } from 'vue';
 import BlurFilter from '@/components/filters/BlurFilter.vue';
 import NoFilter from '@/components/filters/NoFilter.vue';
 import LoadingSpinner from '@/components/LoadingSpinner.vue';
+import BlurCenterFilter from '@/components/filters/BlurCenterFilter.vue';
 
 const props = defineProps<{
   image: string;
@@ -29,6 +30,10 @@ const updateImages = (val: string) => {
       title: 'Blurred',
       filter: BlurFilter,
     },
+    {
+      title: 'Blurred with center',
+      filter: BlurCenterFilter,
+    }
   ];
 };
 

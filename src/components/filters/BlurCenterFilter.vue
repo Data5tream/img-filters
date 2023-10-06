@@ -39,8 +39,23 @@ const loadFilter = (dataUrl: string) => {
     // Blur the first image
     applyFilter();
 
-    // Emit finished event in case this filter image is used to trigger the loading indicator
-    emit('finished');
+    // Create foreground image
+    Konva.Image.fromURL(dataUrl, function (imgNode) {
+      // Create scale factor of second image
+      const miniScale = mainScale * 0.5;
+
+      imgNode.setAttrs({
+        x: (width.value - imgNode.getWidth() * miniScale) / 2,
+        y: (height.value - imgNode.getHeight() * miniScale) / 2,
+        scaleX: miniScale,
+        scaleY: miniScale,
+      });
+      imgNode.cache({ pixelRatio: 1 });
+      lay.add(imgNode);
+
+      // Emit finished event in case this filter image is used to trigger the loading indicator
+      emit('finished');
+    });
   });
 };
 
