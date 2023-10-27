@@ -58,7 +58,7 @@ onMounted(() => {
     <div class="full-image" v-if="filterPreviews.length > currentFilter">
       <component :is="filterPreviews[currentFilter].filter" :image="currentPreview" @finished="loading = false" />
     </div>
-    <div class="grid grid-cols-5 gap-4 preview-tiles">
+    <div class="preview-tiles">
       <div v-for="(preview, i) in filterPreviews" :key="preview.title" class="preview-tile" @click="changeFilter(i)">
         <div class="preview-image">
           <component :is="preview.filter" :image="currentPreview" />
@@ -76,13 +76,17 @@ onMounted(() => {
 }
 .preview-tiles {
   max-height: 25vh;
+  @apply flex gap-4 justify-center;
 
   .preview-tile {
+    width: 128px;
     @apply cursor-pointer border rounded;
   }
 
   .preview-image {
     height: 128px;
+    width: 72px;
+    margin: 0 auto;
   }
 }
 </style>
