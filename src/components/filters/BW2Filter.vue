@@ -49,7 +49,6 @@ const applyFilter = () => {
   konvaImg.filters([Konva.Filters.Grayscale, Konva.Filters.Contrast, Konva.Filters.Brighten]);
   konvaImg.brightness(0.2);
   konvaImg.contrast(0.8);
-
 };
 
 onMounted(() => {
