@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import { onMounted, ref, watch } from 'vue';
 
-import BlurFilter from '@/components/filters/BlurFilter.vue';
-import NoFilter from '@/components/filters/NoFilter.vue';
 import LoadingSpinner from '@/components/LoadingSpinner.vue';
 import BlurCenterFilter from '@/components/filters/BlurCenterFilter.vue';
+import BlurFilter from '@/components/filters/BlurFilter.vue';
+import BWFilter from '@/components/filters/BWFilter.vue';
+import BW2Filter from '@/components/filters/BW2Filter.vue';
+import NoFilter from '@/components/filters/NoFilter.vue';
 
 const props = defineProps<{
   image: string;
@@ -33,6 +35,14 @@ const updateImages = (val: string) => {
     {
       title: 'Blurred with center',
       filter: BlurCenterFilter,
+    },
+    {
+      title: 'Black and white',
+      filter: BWFilter,
+    },
+    {
+      title: 'Black and white 2',
+      filter: BW2Filter,
     },
   ];
 };
