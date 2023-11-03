@@ -19,8 +19,15 @@ onMounted(() => {
 </script>
 
 <template>
-  <main class="container mx-auto p-4">
+  <main>
     <FileUpload v-if="!originalImage" @upload="onUpload" />
     <FilterGallery v-else :image="originalImage" />
   </main>
 </template>
+
+<style lang="postcss">
+main {
+  height: 100vh;
+  @apply p-4;
+}
+</style>

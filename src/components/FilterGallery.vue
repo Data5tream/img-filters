@@ -78,7 +78,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="grid gap-4 max-h-full">
+  <div class="gallery-container">
     <LoadingSpinner v-if="loading" />
     <div class="full-image" v-if="filterPreviews.length > currentFilter">
       <component :is="filterPreviews[currentFilter].filter" :image="currentPreview" @finished="loading = false" />
@@ -95,16 +95,22 @@ onMounted(() => {
 </template>
 
 <style scoped lang="postcss">
+.gallery-container {
+  display: grid;
+  grid-template-rows: 1fr auto;
+
+  @apply gap-4 h-full;
+}
+
 .full-image {
-  max-height: 75vh;
-  @apply h-auto max-w-full mx-auto;
+  height: 66vh;
+  @apply max-w-full mx-auto;
 }
 .preview-tiles {
-  max-height: 25vh;
-  @apply flex gap-4 justify-center;
+  @apply flex py-2 gap-4 overflow-x-scroll;
 
   .preview-tile {
-    width: 128px;
+    flex: 0 0 128px;
     @apply cursor-pointer border rounded;
   }
 
