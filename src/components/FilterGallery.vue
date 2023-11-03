@@ -7,6 +7,9 @@ import BlurFilter from '@/components/filters/BlurFilter.vue';
 import BWFilter from '@/components/filters/BWFilter.vue';
 import BW2Filter from '@/components/filters/BW2Filter.vue';
 import NoFilter from '@/components/filters/NoFilter.vue';
+import PixelCenterFilter from '@/components/filters/PixelCenterFilter.vue';
+import PixelFilter from '@/components/filters/PixelFilter.vue';
+import SepiaFilter from '@/components/filters/SepiaFilter.vue';
 
 const props = defineProps<{
   image: string;
@@ -33,16 +36,28 @@ const updateImages = (val: string) => {
       filter: BlurFilter,
     },
     {
-      title: 'Blurred with center',
+      title: 'Blurred Center',
       filter: BlurCenterFilter,
     },
     {
-      title: 'Black and white',
+      title: 'Pixelated',
+      filter: PixelFilter,
+    },
+    {
+      title: 'Pixelated Center',
+      filter: PixelCenterFilter,
+    },
+    {
+      title: 'B&W',
       filter: BWFilter,
     },
     {
-      title: 'Black and white 2',
+      title: 'B&W 2',
       filter: BW2Filter,
+    },
+    {
+      title: 'Sepia',
+      filter: SepiaFilter,
     },
   ];
 };
